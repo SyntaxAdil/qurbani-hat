@@ -16,22 +16,22 @@ import {
   buttonVariants,
   menuVariants,
   slideInVariants,
-  hoverScaleVariants,
 } from "../ui/MotionDiv";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const Nav_Link = [
-    { href: "/", Label: "Home" },
-    { href: "/animals", Label: "All Animals" },
-    { href: "/profile", Label: "My Profile" },
+    { href: "/", Label: "হোম" },
+    { href: "/animals", Label: "সব পশু" },
+    { href: "/profile", Label: "আমার প্রোফাইল" },
   ];
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
+
           {/* Logo */}
           <MotionDiv
             variants={navbarLogoVariants}
@@ -40,10 +40,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            <Link
-              href="/"
-              className="shrink-0 hover:opacity-80 transition-opacity"
-            >
+            <Link href="/" className="shrink-0 hover:opacity-80 transition-opacity">
               <Image
                 src={"/main-logo.png"}
                 alt="QurbaniHat"
@@ -90,7 +87,7 @@ const Navbar = () => {
           >
             <Button className="flex items-center gap-2 px-6">
               <LogIn className="w-4 h-4" />
-              Login
+              লগইন
             </Button>
           </MotionDiv>
 
@@ -110,6 +107,7 @@ const Navbar = () => {
               <Menu className="w-6 h-6 text-gray-700" />
             )}
           </MotionButton>
+
         </div>
       </div>
 
@@ -121,6 +119,7 @@ const Navbar = () => {
         className="md:hidden border-t bg-white overflow-hidden"
       >
         <div className="px-4 py-4 space-y-3">
+
           <ul className="space-y-2">
             {Nav_Link.map((link, index) => (
               <MotionLi
@@ -142,6 +141,7 @@ const Navbar = () => {
               </MotionLi>
             ))}
           </ul>
+
           <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={
@@ -153,11 +153,13 @@ const Navbar = () => {
           >
             <Button className="w-full flex items-center justify-center gap-2 py-6">
               <LogIn className="w-4 h-4" />
-              Login
+              লগইন
             </Button>
           </MotionDiv>
+
         </div>
       </MotionDiv>
+
     </nav>
   );
 };

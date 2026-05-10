@@ -68,29 +68,25 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      const { error } = await authClient.signIn.email(
+      await authClient.signIn.email(
         {
           email: data.email,
           password: data.password,
           callbackURL: "/",
         },
         {
-          onSuccess: (ctx) => {
-            toast.success("সফলভাবে লগইন হয়েছে ");
-
+          onSuccess: () => {
+            reset();
             router.push("/");
+          },
+          onError: (ctx) => {
+            setError(ctx.error?.message || "লগইন ব্যর্থ হয়েছে");
           },
         },
       );
-      if (error) {
-        setError(error);
-        return;
-      }
-    } catch (error) {
+    } catch (err) {
       setError(err.message || "Something went wrong");
     }
-
-    reset();
   };
 
   return (

@@ -23,7 +23,7 @@ const Navbar = () => {
 
   const Nav_Link = [
     { href: "/", Label: "হোম" },
-    { href: "/animals", Label: "সব পশু" },
+    { href: "/animal", Label: "সব পশু" },
     { href: "/profile", Label: "আমার প্রোফাইল" },
   ];
 

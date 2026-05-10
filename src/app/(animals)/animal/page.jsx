@@ -1,9 +1,17 @@
-import React from 'react'
+import React from "react";
+import AnimalContainer from "../../../components/animal/AnimalContainer";
+import { getAnimals } from "../../../lib/animal";
 
-const AnimalPage = () => {
+const AnimalPage = async () => {
+  const animals = await getAnimals();
+
   return (
-    <div>AnimalPage</div>
-  )
-}
+    <main className="min-h-screen bg-gray-50">
+      <section className="py-16">
+        <AnimalContainer animals={animals} />
+      </section>
+    </main>
+  );
+};
 
-export default AnimalPage
+export default AnimalPage;

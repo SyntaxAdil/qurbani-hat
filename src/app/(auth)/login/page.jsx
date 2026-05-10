@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Alert, AlertTitle } from "../../../components/ui/alert";
-import { authClient } from "../../../lib/auth/auth-client";
+import { authClient, signInGoogle } from "../../../lib/auth/auth-client";
 import { router } from "better-auth/api";
 import { useRouter } from "next/navigation";
 
@@ -210,7 +210,9 @@ const Login = () => {
             </div>
 
             {/* Google */}
-            <Button type="button" variant="secondary" className="w-full gap-2">
+            <Button 
+            onClick={async()=>await signInGoogle()}
+            type="button" variant="secondary" className="w-full gap-2">
               <Google />
               Google দিয়ে লগইন
             </Button>

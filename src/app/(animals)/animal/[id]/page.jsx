@@ -29,7 +29,7 @@ import {
   staggerItemVariants,
 } from "../../../../components/ui/MotionDiv";
 
-import NotFound from './../../../../components/animal/NotFound';
+import NotFound from "./../../../../components/animal/NotFound";
 
 const InfoRow = ({ icon: Icon, label, value }) => (
   <MotionDiv
@@ -55,6 +55,17 @@ const FeaturePill = ({ text }) => (
     {text}
   </MotionDiv>
 );
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+
+  const animal = await getAnimalsById(id);
+  return {
+    title: animal.name,
+    description: animal.description,
+    author:process.env.NEXT_PUBLIC_BASE_URL
+  };
+}
 
 export default async function AnimalDetailPage({ params }) {
   const { id } = await params;

@@ -2,6 +2,11 @@ import React from "react";
 import AnimalContainer from "../../../components/animal/AnimalContainer";
 import { getAnimals } from "../../../lib/animal";
 
+
+export const metadata = {
+  title: "সকল কোরবানি পশু - কোরবানি হাট",
+
+};
 const AnimalPage = async () => {
   const animals = await getAnimals();
 

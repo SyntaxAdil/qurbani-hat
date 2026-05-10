@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Alert, AlertTitle } from "../../../components/ui/alert";
-import { authClient } from "../../../lib/auth/auth-client";
+import { authClient, signInGoogle } from "../../../lib/auth/auth-client";
 import { useRouter } from "next/navigation";
 
 const Google = () => (
@@ -311,7 +311,8 @@ const Register = () => {
             </div>
 
             {/* Google */}
-            <Button type="button" variant="secondary" className="w-full gap-2">
+            <Button
+            onClick={async()=>await signInGoogle()} type="button" variant="secondary" className="w-full gap-2">
               <Google />
               Google দিয়ে নিবন্ধন
             </Button>

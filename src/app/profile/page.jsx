@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import { auth } from "../../lib/auth/auth";
 import { headers } from "next/headers";
@@ -34,7 +36,7 @@ export async function generateMetadata() {
   const name = session?.user?.name;
 
   return {
-    title: name ? `${name} — কোরবানি হাট` : "My Profile",
+    title: name ? `${name} — কোরবানি হাট` : "আমার প্রোফাইল",
   };
 }
 
@@ -62,16 +64,16 @@ const MyProfile = async () => {
         className="max-w-4xl mx-auto space-y-5"
       >
 
-        {/* PROFILE CARD */}
+        {/* প্রোফাইল কার্ড */}
         <MotionDiv variants={fadeInUpVariants}>
           <Card className="overflow-hidden border border-primary/10 shadow-sm pt-0">
 
-            {/* Banner */}
+            {/* ব্যানার */}
             <div className="h-32 bg-linear-to-r from-primary/90 via-primary to-primary/70" />
 
             <CardContent className="px-8 pb-7">
 
-              {/* Avatar */}
+              {/* প্রোফাইল ছবি */}
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 -mt-12">
 
                 <MotionDiv
@@ -101,7 +103,7 @@ const MyProfile = async () => {
                   )}
                 </MotionDiv>
 
-                {/* Desktop Edit */}
+                {/* ডেস্কটপ এডিট বাটন */}
                 <MotionDiv
                   variants={staggerItemVariants}
                   className="hidden md:block"
@@ -110,7 +112,7 @@ const MyProfile = async () => {
                 </MotionDiv>
               </div>
 
-              {/* NAME */}
+              {/* নাম ও ইমেইল */}
               <MotionDiv
                 variants={staggerItemVariants}
                 className="mt-4 space-y-1"
@@ -123,7 +125,7 @@ const MyProfile = async () => {
                   {emailVerified && (
                     <Badge className="bg-primary/10 text-primary border border-primary/20">
                       <CheckCircle className="w-3 h-3 mr-1" />
-                      Verified
+                      ভেরিফাইড
                     </Badge>
                   )}
                 </div>
@@ -134,7 +136,7 @@ const MyProfile = async () => {
                 </p>
               </MotionDiv>
 
-              {/* Mobile Edit */}
+              {/* মোবাইল এডিট বাটন */}
               <MotionDiv
                 variants={staggerItemVariants}
                 className="md:hidden my-4"
@@ -146,13 +148,13 @@ const MyProfile = async () => {
           </Card>
         </MotionDiv>
 
-        {/* INFO GRID */}
+        {/* তথ্যের অংশ */}
         <MotionDiv
           variants={staggerContainerVariants}
           className="grid sm:grid-cols-2 gap-4"
         >
 
-          {/* Account */}
+          {/* একাউন্ট তথ্য */}
           <MotionDiv
             variants={staggerItemVariants}
             whileHover={{ y: -4 }}
@@ -162,7 +164,7 @@ const MyProfile = async () => {
               <CardContent className="p-6 space-y-4">
 
                 <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
-                  Account Info
+                  একাউন্ট তথ্য
                 </h2>
 
                 <div className="space-y-4">
@@ -171,7 +173,7 @@ const MyProfile = async () => {
                     <Mail className="w-4 h-4 text-primary mt-1" />
                     <div>
                       <p className="text-xs text-muted-foreground">
-                        Email
+                        ইমেইল
                       </p>
                       <p className="font-semibold text-sm">
                         {email}
@@ -183,7 +185,7 @@ const MyProfile = async () => {
                     <CheckCircle className="w-4 h-4 text-primary mt-1" />
                     <div>
                       <p className="text-xs text-muted-foreground">
-                        Status
+                        স্ট্যাটাস
                       </p>
 
                       <p
@@ -194,8 +196,8 @@ const MyProfile = async () => {
                         }`}
                       >
                         {emailVerified
-                          ? "Email Verified"
-                          : "Not Verified"}
+                          ? "ইমেইল ভেরিফাইড"
+                          : "ভেরিফাই করা হয়নি"}
                       </p>
                     </div>
                   </div>
@@ -205,7 +207,7 @@ const MyProfile = async () => {
             </Card>
           </MotionDiv>
 
-          {/* Activity */}
+          {/* এক্টিভিটি */}
           <MotionDiv
             variants={staggerItemVariants}
             whileHover={{ y: -4 }}
@@ -215,7 +217,7 @@ const MyProfile = async () => {
               <CardContent className="p-6 space-y-4">
 
                 <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
-                  Activity
+                  কার্যক্রম
                 </h2>
 
                 <div className="space-y-4">
@@ -225,11 +227,11 @@ const MyProfile = async () => {
 
                     <div>
                       <p className="text-xs text-muted-foreground">
-                        Member Since
+                        সদস্য হয়েছেন
                       </p>
 
                       <p className="font-semibold text-sm">
-                        {new Date(createdAt).toLocaleDateString()}
+                        {new Date(createdAt).toLocaleDateString("bn-BD")}
                       </p>
                     </div>
                   </div>
@@ -239,11 +241,11 @@ const MyProfile = async () => {
 
                     <div>
                       <p className="text-xs text-muted-foreground">
-                        Last Updated
+                        সর্বশেষ আপডেট
                       </p>
 
                       <p className="font-semibold text-sm">
-                        {new Date(updatedAt).toLocaleDateString()}
+                        {new Date(updatedAt).toLocaleDateString("bn-BD")}
                       </p>
                     </div>
                   </div>

@@ -29,6 +29,7 @@ import { useForm } from "react-hook-form";
 import { Alert, AlertTitle } from "../../../components/ui/alert";
 import { authClient, signInGoogle } from "../../../lib/auth/auth-client";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Google = () => (
   <svg
@@ -83,6 +84,7 @@ const Register = () => {
         },
         {
           onSuccess: () => {
+            toast.success("সফলভাবে নিবন্ধন হয়েছে ");
             router.push("/login");
           },
           onError: (ctx) => {

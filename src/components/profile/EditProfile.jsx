@@ -13,7 +13,7 @@ import { Label } from "../ui/label";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
+ DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
@@ -46,19 +46,21 @@ const EditProfile = ({ user }) => {
       },
       {
         onSuccess: () => {
-          toast.success("Profile Updated Successfully!");
+          toast.success("প্রোফাইল সফলভাবে আপডেট হয়েছে!");
           router.refresh();
         },
         onError: (ctx) => {
           setServerError(
-            ctx?.error?.message || "Something went wrong. Please try again.",
+            ctx?.error?.message || "কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।",
           );
         },
       },
     );
 
     if (error) {
-      setServerError(error.message);
+      setServerError(
+        error.message || "কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।",
+      );
     }
   };
 
@@ -68,7 +70,7 @@ const EditProfile = ({ user }) => {
       <DialogTrigger asChild>
         <Button className="bg-primary hover:bg-primary/90 text-white flex gap-2">
           <Edit />
-          Edit Profile
+          প্রোফাইল এডিট
         </Button>
       </DialogTrigger>
 
@@ -94,19 +96,23 @@ const EditProfile = ({ user }) => {
           <div className="space-y-2">
             <Label>নাম</Label>
             <Input
-              placeholder="আপনার নাম লিখুন"
+              placeholder="আপনার পুরো নাম লিখুন"
               {...register("name", {
                 required: "নাম দিতে হবে",
               })}
             />
+
             {errors.name && (
-              <p className="text-sm text-red-500">{errors.name.message}</p>
+              <p className="text-sm text-red-500">
+                {errors.name.message}
+              </p>
             )}
           </div>
 
           {/* Image */}
           <div className="space-y-2">
-            <Label>ছবি URL</Label>
+            <Label>প্রোফাইল ছবির URL</Label>
+
             <Input
               placeholder="https://example.com/image.jpg"
               {...register("image")}
@@ -116,17 +122,18 @@ const EditProfile = ({ user }) => {
           {/* Actions */}
           <div className="flex justify-end gap-2 pt-2">
             <DialogTrigger asChild>
-              <Button variant="outline">বন্ধ করুন</Button>
-            </DialogTrigger>
-            <DialogTrigger asChild>
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-primary hover:bg-primary/90 text-white"
-              >
-                {isSubmitting ? "Saving..." : "Save Changes"}
+              <Button variant="outline">
+                বন্ধ করুন
               </Button>
             </DialogTrigger>
+
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-primary hover:bg-primary/90 text-white"
+            >
+              {isSubmitting ? "সংরক্ষণ হচ্ছে..." : "পরিবর্তন সংরক্ষণ করুন"}
+            </Button>
           </div>
         </form>
       </DialogContent>

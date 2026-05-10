@@ -72,10 +72,12 @@ const Login = () => {
         {
           email: data.email,
           password: data.password,
-            callbackURL: "/"
+          callbackURL: "/",
         },
         {
           onSuccess: (ctx) => {
+            toast.success("সফলভাবে লগইন হয়েছে ");
+
             router.push("/");
           },
         },
@@ -210,9 +212,12 @@ const Login = () => {
             </div>
 
             {/* Google */}
-            <Button 
-            onClick={async()=>await signInGoogle()}
-            type="button" variant="secondary" className="w-full gap-2">
+            <Button
+              onClick={async () => await signInGoogle()}
+              type="button"
+              variant="secondary"
+              className="w-full gap-2"
+            >
               <Google />
               Google দিয়ে লগইন
             </Button>

@@ -132,11 +132,11 @@ const Navbar = () => {
                 animate={mobileMenuOpen ? "visible" : "hidden"}
                 whileHover={{ scale: 1.02, x: 10 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <NavLink
                   href={link.href}
                   className="block px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors font-medium text-gray-700 hover:text-gray-900"
-                  onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.Label}
                 </NavLink>
@@ -153,7 +153,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <Link href={"/login"}>
+            <Link href={"/login"} onClick={() => setMobileMenuOpen(false)}>
               <Button className="w-full flex items-center justify-center gap-2 py-6">
                 <LogIn className="w-4 h-4" />
                 লগইন

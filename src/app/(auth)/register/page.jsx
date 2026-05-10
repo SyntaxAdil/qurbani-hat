@@ -178,7 +178,7 @@ const Register = () => {
                   {...register("password", {
                     required: "পাসওয়ার্ড দিতে হবে",
                     minLength: {
-                      value: 6,
+                      value: 8,
                       message: "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে",
                     },
                     pattern: {

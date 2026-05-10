@@ -16,18 +16,11 @@ import {
   fadeInRightVariants,
   staggerItemVariants,
 } from "../../components/ui/MotionDiv";
+import Link from "next/link";
 
 const AnimalCard = ({ animal }) => {
-  const {
-    name,
-    price,
-    type,
-    weight,
-    description,
-    image,
-    location,
-    age,
-  } = animal;
+  const { id, name, price, type, weight, description, image, location, age } =
+    animal;
 
   return (
     <MotionDiv
@@ -39,7 +32,6 @@ const AnimalCard = ({ animal }) => {
       transition={{ type: "spring", stiffness: 200 }}
     >
       <Card className="relative mx-auto w-full max-w-sm overflow-hidden pt-0 shadow-md hover:shadow-xl transition-all duration-300">
-
         {/* Image Section */}
         <div className="relative aspect-video w-full overflow-hidden">
           <Image
@@ -108,12 +100,11 @@ const AnimalCard = ({ animal }) => {
             whileTap={{ scale: 0.95 }}
             className="w-full"
           >
-            <Button className="w-full">
-              বিস্তারিত দেখুন
-            </Button>
+            <Link href={`/animal/${id}`}>
+              <Button className="w-full">বিস্তারিত দেখুন</Button>
+            </Link>
           </MotionDiv>
         </CardFooter>
-
       </Card>
     </MotionDiv>
   );

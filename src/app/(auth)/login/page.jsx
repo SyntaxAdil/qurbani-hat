@@ -10,19 +10,21 @@ import {
   FieldTitle,
 } from "../../../components/ui/field";
 import { Input } from "../../../components/ui/input";
-import Wrapper from "./../../../utils/Wrapper";
 import {
   fadeInUpVariants,
   MotionDiv,
 } from "./../../../components/ui/MotionDiv";
 import { useState } from "react";
-import { AlertCircleIcon, Eye, EyeClosed, Loader2, Lock, Mail } from "lucide-react";
-import { useForm } from "react-hook-form";
 import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "../../../components/ui/alert";
+  AlertCircleIcon,
+  Eye,
+  EyeClosed,
+  Loader2,
+  Lock,
+  Mail,
+} from "lucide-react";
+import { useForm } from "react-hook-form";
+import { Alert, AlertTitle } from "../../../components/ui/alert";
 
 const Google = () => (
   <svg
@@ -97,7 +99,10 @@ const Login = () => {
 
               {/* Email */}
               <Field>
-                    <FieldLabel htmlFor="email" className="flex items-center gap-1.5">
+                <FieldLabel
+                  htmlFor="email"
+                  className="flex items-center gap-1.5"
+                >
                   <Mail className="w-3.5 h-3.5 text-primary" />
                   ইমেইল
                 </FieldLabel>

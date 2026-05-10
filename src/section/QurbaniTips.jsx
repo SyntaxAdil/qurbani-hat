@@ -5,7 +5,7 @@ import {
   staggerItemVariants,
 } from "../components/ui/MotionDiv";
 import Wrapper from "../utils/Wrapper";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "../components/ui/badge";
 
 const tips = [
   {

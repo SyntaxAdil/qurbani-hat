@@ -3,7 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "../ui/separator";
+
+
 
 const Footer = () => {
   const quickLinks = [

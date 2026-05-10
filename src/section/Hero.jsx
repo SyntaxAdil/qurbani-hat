@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 
 import {
   MotionDiv,
@@ -16,11 +16,11 @@ import {
   fadeInRightVariants,
   staggerContainerVariants,
   staggerItemVariants,
-} from "@/components/ui/MotionDiv";
+} from "../components/ui/MotionDiv";
 
-import heroBg from "@/assets/hero-bg.png";
-import heroBg2 from "@/assets/hero-bg-2.png";
-import heroBg3 from "@/assets/hero-bg-3.png";
+import heroBg from "../assets/hero-bg.png";
+import heroBg2 from "../assets/hero-bg-2.png";
+import heroBg3 from "../assets/hero-bg-3.png";
 import Link from "next/link";
 
 const slides = [

@@ -108,7 +108,7 @@ export default function HeroSection() {
 
                   {/* Title */}
                   <MotionDiv variants={fadeInLeftVariants}>
-                    <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black leading-[1.15] tracking-tight text-foreground">
+                    <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black leading-[1.4] tracking-tight text-foreground">
                       {slide.title}
                     </h1>
                   </MotionDiv>

@@ -23,9 +23,12 @@ import {
   Mail,
   Lock,
   ShieldCheck,
+  Camera,
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Alert, AlertTitle } from "../../../components/ui/alert";
+import { authClient } from "../../../lib/auth/auth-client";
+import { useRouter } from "next/navigation";
 
 const Google = () => (
   <svg
@@ -53,6 +56,7 @@ const Google = () => (
 );
 
 const Register = () => {
+  const router = useRouter();
   const [error, setError] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [showConPass, setShowConPass] = useState(false);
@@ -61,13 +65,36 @@ const Register = () => {
     register,
     handleSubmit,
     watch,
+
     formState: { errors, isSubmitting },
     reset,
   } = useForm();
 
   const onSubmit = async (data) => {
     setError("");
-    reset();
+
+    try {
+      await authClient.signUp.email(
+        {
+          name: data.name,
+          image: data.image,
+          email: data.email,
+          password: data.password,
+        },
+        {
+          onSuccess: () => {
+            router.push("/login");
+          },
+          onError: (ctx) => {
+            setError(ctx.error?.message || "Registration failed");
+          },
+        },
+      );
+
+      reset();
+    } catch (err) {
+      setError(err.message || "Something went wrong");
+    }
   };
 
   return (
@@ -129,6 +156,36 @@ const Register = () => {
                   <p className="flex items-center gap-1 text-xs text-red-500 mt-1">
                     <AlertCircleIcon className="w-3 h-3" />{" "}
                     {errors.name.message}
+                  </p>
+                )}
+              </Field>
+              {/* ছবি */}
+              <Field>
+                <FieldLabel
+                  htmlFor="image"
+                  className="flex items-center gap-1.5"
+                >
+                  <Camera className="w-3.5 h-3.5 text-primary" />
+                  ছবি URL
+                </FieldLabel>
+
+                <Input
+                  id="image"
+                  type="text"
+                  placeholder="https://example.com/image.jpg"
+                  {...register("image", {
+                    required: "ছবির URL দিতে হবে",
+                    pattern: {
+                      value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|webp|gif))$/i,
+                      message: "সঠিক ছবি URL দিন",
+                    },
+                  })}
+                />
+
+                {errors.image && (
+                  <p className="flex items-center gap-1 text-xs text-red-500 mt-1">
+                    <AlertCircleIcon className="w-3 h-3" />
+                    {errors.image.message}
                   </p>
                 )}
               </Field>

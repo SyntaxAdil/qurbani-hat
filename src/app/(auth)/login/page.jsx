@@ -25,6 +25,9 @@ import {
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Alert, AlertTitle } from "../../../components/ui/alert";
+import { authClient } from "../../../lib/auth/auth-client";
+import { router } from "better-auth/api";
+import { useRouter } from "next/navigation";
 
 const Google = () => (
   <svg
@@ -52,6 +55,7 @@ const Google = () => (
 );
 
 const Login = () => {
+  const router = useRouter();
   const [error, setError] = useState("");
   const [showPass, setShowPass] = useState(false);
 
@@ -63,7 +67,27 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    try {
+      const { error } = await authClient.signIn.email(
+        {
+          email: data.email,
+          password: data.password,
+            callbackURL: "/"
+        },
+        {
+          onSuccess: (ctx) => {
+            router.push("/");
+          },
+        },
+      );
+      if (error) {
+        setError(error);
+        return;
+      }
+    } catch (error) {
+      setError(err.message || "Something went wrong");
+    }
+
     reset();
   };
 

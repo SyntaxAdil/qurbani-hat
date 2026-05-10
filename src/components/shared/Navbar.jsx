@@ -1,10 +1,14 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import NavLink from "./../../utils/NavLink";
 import { Button } from "../ui/button";
-import { LogIn, Menu, X } from "lucide-react";
+import { LogIn, Menu, X, LogOut, Loader2 } from "lucide-react";
+
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+
 import {
   MotionDiv,
   MotionUl,
@@ -18,14 +22,28 @@ import {
   slideInVariants,
 } from "../ui/MotionDiv";
 
+import { useSession, authClient, signOut } from "../../lib/auth/auth-client";
+
+
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const { data: session, isPending } = useSession();
+  const user = session?.user;
 
   const Nav_Link = [
     { href: "/", Label: "হোম" },
     { href: "/animal", Label: "সব পশু" },
     { href: "/profile", Label: "আমার প্রোফাইল" },
   ];
+
+  const getInitials = (name = "") =>
+    name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b shadow-sm">
@@ -36,15 +54,10 @@ const Navbar = () => {
             variants={navbarLogoVariants}
             initial="hidden"
             animate="visible"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
           >
-            <Link
-              href="/"
-              className="shrink-0 hover:opacity-80 transition-opacity"
-            >
+            <Link href="/">
               <Image
-                src={"/main-logo.png"}
+                src="/main-logo.png"
                 alt="QurbaniHat"
                 width={600}
                 height={600}
@@ -54,23 +67,18 @@ const Navbar = () => {
             </Link>
           </MotionDiv>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Nav */}
           <MotionUl
             variants={navbarContainerVariants}
             initial="hidden"
             animate="visible"
-            className="hidden md:flex items-center gap-1 lg:gap-6"
+            className="hidden md:flex items-center gap-6"
           >
             {Nav_Link.map((link) => (
-              <MotionLi
-                key={link.href}
-                variants={navbarItemVariants}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <MotionLi key={link.href} variants={navbarItemVariants}>
                 <NavLink
                   href={link.href}
-                  className="px-3 lg:px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors font-medium text-gray-700 hover:text-gray-900"
+                  className="px-4 py-2 rounded-lg hover:bg-gray-100 font-medium text-gray-700"
                 >
                   {link.Label}
                 </NavLink>
@@ -78,65 +86,76 @@ const Navbar = () => {
             ))}
           </MotionUl>
 
-          {/* Desktop Login Button */}
-          <MotionDiv
-            variants={buttonVariants}
-            initial="hidden"
-            animate="visible"
-            whileHover="hover"
-            whileTap="tap"
-            className="hidden md:block"
-          >
-            <Link href={"/login"}>
-              <Button className="flex items-center gap-2 px-6">
-                <LogIn className="w-4 h-4" />
-                লগইন
-              </Button>
-            </Link>
-          </MotionDiv>
+          {/* RIGHT SIDE */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* LOADING STATE */}
+            {isPending ? (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                লোড হচ্ছে...
+              </div>
+            ) : user ? (
+              <>
+                <Avatar className="cursor-pointer">
+                  <AvatarImage src={user.image || ""} />
+                  <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+                </Avatar>
 
-          {/* Mobile Menu Button */}
+                <Button
+                  onClick={async () => await signOut()}
+                  variant="outline"
+                  className="flex items-center gap-2"
+                >
+                  <LogOut className="w-4 h-4" />
+                  লগআউট
+                </Button>
+              </>
+            ) : (
+              <MotionDiv
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+              >
+                <Link href="/login">
+                  <Button className="flex items-center gap-2 px-6">
+                    <LogIn className="w-4 h-4" />
+                    লগইন
+                  </Button>
+                </Link>
+              </MotionDiv>
+            )}
+          </div>
+
+          {/* MOBILE BUTTON */}
           <MotionButton
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            aria-label="Toggle menu"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            className="md:hidden p-2"
             animate={{ rotate: mobileMenuOpen ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
           >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-gray-700" />
-            ) : (
-              <Menu className="w-6 h-6 text-gray-700" />
-            )}
+            {mobileMenuOpen ? <X /> : <Menu />}
           </MotionButton>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* MOBILE MENU */}
       <MotionDiv
         initial="hidden"
         animate={mobileMenuOpen ? "visible" : "hidden"}
         variants={menuVariants}
-        className="md:hidden border-t bg-white overflow-hidden"
+        className="md:hidden border-t bg-white"
       >
         <div className="px-4 py-4 space-y-3">
           <ul className="space-y-2">
-            {Nav_Link.map((link, index) => (
+            {Nav_Link.map((link, i) => (
               <MotionLi
                 key={link.href}
-                custom={index}
+                custom={i}
                 variants={slideInVariants}
-                initial="hidden"
-                animate={mobileMenuOpen ? "visible" : "hidden"}
-                whileHover={{ scale: 1.02, x: 10 }}
-                whileTap={{ scale: 0.98 }}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <NavLink
                   href={link.href}
-                  className="block px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors font-medium text-gray-700 hover:text-gray-900"
+                  className="block px-4 py-3 rounded-lg hover:bg-gray-100"
                 >
                   {link.Label}
                 </NavLink>
@@ -144,22 +163,32 @@ const Navbar = () => {
             ))}
           </ul>
 
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={
-              mobileMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-            }
-            transition={{ delay: 0.3 }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Link href={"/login"} onClick={() => setMobileMenuOpen(false)}>
-              <Button className="w-full flex items-center justify-center gap-2 py-6">
+          {/* MOBILE USER */}
+          {isPending ? (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground px-2">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              লোড হচ্ছে...
+            </div>
+          ) : user ? (
+            <div className="flex items-center justify-between px-2 pt-3 border-t">
+              <Avatar>
+                <AvatarImage src={user.image || ""} />
+                <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+              </Avatar>
+
+              <Button onClick={async () => await signOut()} variant="outline">
+                <LogOut className="w-4 h-4 mr-2" />
+                লগআউট
+              </Button>
+            </div>
+          ) : (
+            <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+              <Button className="w-full flex gap-2">
                 <LogIn className="w-4 h-4" />
                 লগইন
               </Button>
             </Link>
-          </MotionDiv>
+          )}
         </div>
       </MotionDiv>
     </nav>

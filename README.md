@@ -2,7 +2,7 @@
 
 > আধুনিক, দ্রুত এবং সম্পূর্ণ রেসপন্সিভ একটি অনলাইন কুরবানির পশুর হাট প্ল্যাটফর্ম যেখানে ব্যবহারকারীরা সহজেই পশু ব্রাউজ, ফিল্টার, লগইন এবং নিজেদের প্রোফাইল ম্যানেজ করতে পারে।
 
-![QurbaniHat Banner](https://raw.githubusercontent.com/SyntaxAdil/qurbani-hat/main/public/home.png)
+![QurbaniHat Banner](https://raw.githubusercontent.com/SyntaxAdil/qurbani-hat/main/public/baner.png)
 
 ---
 

@@ -28,6 +28,7 @@ import { Alert, AlertTitle } from "../../../components/ui/alert";
 import { authClient, signInGoogle } from "../../../lib/auth/auth-client";
 import { router } from "better-auth/api";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Google = () => (
   <svg
@@ -77,6 +78,7 @@ const Login = () => {
         {
           onSuccess: () => {
             reset();
+            toast.success("সফলভাবে লগিন হয়েছে ");
             router.push("/");
           },
           onError: (ctx) => {

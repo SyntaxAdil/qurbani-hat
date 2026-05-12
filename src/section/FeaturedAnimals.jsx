@@ -93,7 +93,7 @@ const FeaturedAnimals = ({ animals }) => {
             asChild
             className="rounded-full px-8 py-3 text-base font-bold text-white bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
-            <Link href="/animals">
+            <Link href="/animal">
               সকল পশু দেখুন →
             </Link>
           </Button>

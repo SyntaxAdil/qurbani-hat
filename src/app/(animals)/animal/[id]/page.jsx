@@ -97,7 +97,7 @@ export default async function AnimalDetailPage({ params }) {
             <span>/</span>
 
             <Link
-              href="/animals"
+              href="/animal"
               className="hover:text-primary transition-colors"
             >
               সব পশু

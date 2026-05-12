@@ -58,7 +58,7 @@ export default function NotFound() {
               variant="outline"
               className="flex-1 h-11 rounded-xl font-bold border-2 border-primary/20 text-primary hover:bg-primary hover:text-white transition-all gap-2"
             >
-              <Link href="/animals">
+              <Link href="/animal">
                 <Search className="w-4 h-4" />
                 পশু খুঁজুন
               </Link>
